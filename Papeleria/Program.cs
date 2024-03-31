@@ -1,3 +1,6 @@
+using Papeleria.AccesoDatos.EntityFramework.Repositorios;
+using Papeleria.LogicaNegocio.InterfacesAccesoDatos;
+
 namespace Papeleria
 {
     public class Program
@@ -8,6 +11,8 @@ namespace Papeleria
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
+           // builder.Services.AddScoped<IRepositorioAutor, RepositorioAutorEF>();
 
             var app = builder.Build();
 
