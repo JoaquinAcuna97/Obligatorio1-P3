@@ -16,6 +16,10 @@ namespace Papeleria.LogicaNegocio.Entidades
 
         public string Email { get; set;}
 
+        public string Contrasena { get; set; }
+
+        public string ContrasenaEncriptada { get; set; }
+
         public bool EsAdmin { get; set;}
 
         #endregion

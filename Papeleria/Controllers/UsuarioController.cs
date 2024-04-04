@@ -73,7 +73,8 @@ namespace Papeleria.Web.Controllers
         // GET: UsuarioController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            
+            return View(repositorioUsuario.FindByID(id));
         }
 
         // POST: UsuarioController/Delete/5
@@ -83,6 +84,7 @@ namespace Papeleria.Web.Controllers
         {
             try
             {
+                repositorioUsuario.Remove(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

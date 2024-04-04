@@ -44,12 +44,16 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
 
         public Usuario FindByID(int id)
         {
-            throw new NotImplementedException();
+            return _context.usuarios.Where(usuario => usuario.Id == id).FirstOrDefault();
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            Usuario aBorrar = new Usuario();
+            aBorrar.Id = id;
+            _context.usuarios.Remove(aBorrar);
+            _context.SaveChanges(); 
+            return true;
         }
 
         public bool Update(Usuario aActualizar)

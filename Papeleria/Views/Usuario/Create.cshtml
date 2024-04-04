@@ -27,7 +27,16 @@
                 <input asp-for="Email" class="form-control" name="email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Contrasena" class="control-label"></label>
+                <input asp-for="Contrasena" class="form-control" name="Contrasena" />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContrasenaEncriptada" class="control-label"></label>
+                <input asp-for="ContrasenaEncriptada" class="form-control" name="ContrasenaEncriptada" />
+                <span asp-validation-for="ContrasenaEncriptada" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
