@@ -1,10 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using Papeleria.LogicaNegocio.InterfacesEntidades;
+using Papeleria.LogicaNegocio.ValueObject;
+using System.ComponentModel.DataAnnotations;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class Articulo : IValidable<Articulo>
+    [Index(nameof(Nombre), IsUnique = true)]
+    public class Articulo : IValidable<Articulo>
 	{
 		//TODO: el nombre debe ser unico
+		[Required]
 		public string Nombre;
 
 		public string Descripcion;
