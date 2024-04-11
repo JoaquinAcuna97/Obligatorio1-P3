@@ -10,5 +10,6 @@ namespace Papeleria.LogicaNegocio.InterfacesAccesoDatos
 {
     public interface IRepositorioUsuario : IRepositorio<Usuario>
     {
+        Usuario? FindByEmailPassword(string email, string contrasena);
     }
 }

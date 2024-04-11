@@ -3,6 +3,7 @@ using Papeleria.LogicaNegocio.InterfacesAccesoDatos;
 using Papeleria.LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Papeleria.Web.Controllers
 {
@@ -34,40 +35,38 @@ namespace Papeleria.Web.Controllers
         // POST: UsuarioController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Usuario usuario, String nombre, String apellido, String email)
+        public ActionResult Create(Usuario usuario, string nombre, string apellido, string email, string contrasena, string contrasenaEncriptada)
         {
-            try
-            {
                 NombreCompleto nombreUsuario = new NombreCompleto(nombre, apellido);
                 usuario.NombreCompleto = nombreUsuario;
+                usuario.Email = email;
+                usuario.Contrasena = contrasena;
+                usuario.ContrasenaEncriptada = contrasenaEncriptada;
                 repositorioUsuario.Add(usuario);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: UsuarioController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(repositorioUsuario.FindByID(id));
         }
 
         // POST: UsuarioController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, string nombre, string apellido, string contrasena, string contrasenaEncriptada)
         {
-            try
-            {
+            Usuario usuario = repositorioUsuario.FindByID(id);
+
+            
+                NombreCompleto nombreUsuario = new NombreCompleto(nombre, apellido);
+                usuario.NombreCompleto = nombreUsuario;
+                usuario.Contrasena = contrasena;
+                usuario.ContrasenaEncriptada = contrasenaEncriptada;
+                repositorioUsuario.Update(usuario);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
         }
 
         // GET: UsuarioController/Delete/5
@@ -82,15 +81,8 @@ namespace Papeleria.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
                 repositorioUsuario.Remove(id);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
