@@ -1,0 +1,59 @@
+﻿@model Papeleria.LogicaNegocio.Entidades.Usuario
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="NombreCompleto.Nombre" class="control-label"></label>
+                <input asp-for="NombreCompleto.Nombre" class="form-control" name="nombre" />
+                <span asp-validation-for="NombreCompleto.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreCompleto.Apellido" class="control-label"></label>
+                <input asp-for="NombreCompleto.Apellido" class="form-control" name="apellido" />
+                <span asp-validation-for="NombreCompleto.Apellido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input readonly="true" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contrasena" class="control-label"></label>
+                <input asp-for="Contrasena" class="form-control" />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContrasenaEncriptada" class="control-label"></label>
+                <input asp-for="ContrasenaEncriptada" class="form-control" />
+                <span asp-validation-for="ContrasenaEncriptada" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EsAdmin" /> @Html.DisplayNameFor(model => model.EsAdmin)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

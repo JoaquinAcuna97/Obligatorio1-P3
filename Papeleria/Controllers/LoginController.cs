@@ -49,7 +49,7 @@ namespace Papeleria.Controllers
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("IniciarSesion");
+            return RedirectToAction("Index", "Home");
         }
 
     }

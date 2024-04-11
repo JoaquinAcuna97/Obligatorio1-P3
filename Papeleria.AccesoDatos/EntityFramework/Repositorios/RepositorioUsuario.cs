@@ -67,7 +67,9 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
 
         public bool Update(Usuario aActualizar)
         {
-            throw new NotImplementedException();
+            _context.Update(aActualizar);
+            _context.SaveChanges();
+            return true;
         }
     }
 }
