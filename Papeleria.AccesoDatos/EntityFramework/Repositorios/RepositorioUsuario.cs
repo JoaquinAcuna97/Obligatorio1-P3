@@ -46,7 +46,16 @@ namespace Papeleria.AccesoDatos.EntityFramework.Repositorios
         {
             return _context.usuarios.Where(usuario => usuario.Id == id).FirstOrDefault();
         }
-
+        public Usuario FindByEmailPassword(string email, string password)
+        {
+            Usuario usuario = _context.usuarios.Where(usuario => usuario.Email == email && usuario.Contrasena == password).FirstOrDefault();
+            if (usuario == null)
+            {
+                //TODO: encriptar contrasena y buscar por contrasena encriptada
+                throw new FileNotFoundException();
+            }
+            return usuario;
+        }
         public bool Remove(int id)
         {
             Usuario aBorrar = new Usuario();

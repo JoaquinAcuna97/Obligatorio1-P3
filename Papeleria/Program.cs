@@ -12,7 +12,8 @@ namespace Papeleria
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
-           // builder.Services.AddScoped<IRepositorioAutor, RepositorioAutorEF>();
+
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -26,6 +27,8 @@ namespace Papeleria
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapControllerRoute(
                 name: "default",
