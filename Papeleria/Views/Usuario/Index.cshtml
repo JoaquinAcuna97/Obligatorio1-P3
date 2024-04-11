@@ -4,12 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Autores</h1>
+<h1>Usuarios</h1>
 
 <p>
     <a asp-action="Create">Agregar Usuario</a> <br/>
     <a asp-controller="Usuario" asp-action="Index">Ver Usuarios</a>
 </p>
+<form class="form-inline my-2 my-lg-0">
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Nombre o Apellido">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Monto Minimo">
+        </div>
+        <div class="col">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </div>
+    </div>
+    
+    
+</form>
 <table class="table">
     <thead>
         <tr>
