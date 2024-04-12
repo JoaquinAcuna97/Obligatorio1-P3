@@ -4,6 +4,7 @@ using Papeleria.LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Papeleria.LogicaNegocio.Excepciones.Usuario;
 
 namespace Papeleria.Web.Controllers
 {
@@ -37,6 +38,7 @@ namespace Papeleria.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Usuario usuario, string nombre, string apellido, string email, string contrasena, string contrasenaEncriptada)
         {
+            try { 
                 NombreCompleto nombreUsuario = new NombreCompleto(nombre, apellido);
                 usuario.NombreCompleto = nombreUsuario;
                 usuario.Email = email;
@@ -44,6 +46,12 @@ namespace Papeleria.Web.Controllers
                 usuario.ContrasenaEncriptada = contrasenaEncriptada;
                 repositorioUsuario.Add(usuario);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (UsuarioNoValidoException ex)
+            {
+                ViewBag.error = ex.Message;
+                return View();
+            }
         }
 
         // GET: UsuarioController/Edit/5

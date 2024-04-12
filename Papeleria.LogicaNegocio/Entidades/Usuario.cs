@@ -61,13 +61,14 @@ namespace Papeleria.LogicaNegocio.Entidades
             return this.Id == other.Id;
         }
         #endregion
+        #region Métodos para validaciones
         public void ValidarEmail(string email) {
             // Patrón de expresión regular para validar una dirección de correo electrónico
             string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
             // Comprueba si el formato del correo electrónico coincide con el patrón
             if (!Regex.IsMatch(email, pattern)) {
-                throw new Exception("Email invalido");
+                throw new UsuarioNoValidoException("Email invalido");
             }
         }
         public void ValidarStringAlfaNum(string input, string tipo)
@@ -78,7 +79,7 @@ namespace Papeleria.LogicaNegocio.Entidades
             // Comprueba si el formato del string coincide con el patrón
             if (!Regex.IsMatch(input, pattern))
             {
-                throw new Exception(tipo+ " invalido");
+                throw new UsuarioNoValidoException(tipo+ " invalido");
             }
         }
         public void ValidarNombre(string nombre)
@@ -98,10 +99,10 @@ namespace Papeleria.LogicaNegocio.Entidades
             // Comprueba si la contraseña coincide con el patrón
             if (!Regex.IsMatch(password, pattern))
             {
-                throw new Exception("Contraseña invalida, debe contener mínimo de 6 caracteres, al menos una letra mayúscula, una minúscula, un dígito y un carácter de puntuación");
+                throw new UsuarioNoValidoException("Contraseña invalida, debe contener mínimo de 6 caracteres, al menos una letra mayúscula, una minúscula, un dígito y un carácter de puntuación");
             }
         }
-        #region Métodos para validaciones
+
         public void EsValido(Usuario entidad)
         {
             // TODO: Validar Email
@@ -141,16 +142,7 @@ namespace Papeleria.LogicaNegocio.Entidades
 
         public void EsValido()
         {
-            try
-            {
                 EsValido(this);
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new UsuarioNoValidoException("Estoy capturando en EsValido", ex);
-            }
         }
         #endregion
     }
