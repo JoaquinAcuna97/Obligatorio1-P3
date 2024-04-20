@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUsoArticulo.Implementaciones
 {
-    public class CasoUsoAltaArticulo : ICasoUsoAltaArticulo
+    public class CasoUsoListarArticulos : ICasoUsoListarArticulos
     {
         public IRepositorioArticulo RepositorioArticulos { get; set; }
 
-        public CasoUsoAltaArticulo(IRepositorioArticulo repositorioArticulos)
+        public CasoUsoListarArticulos(IRepositorioArticulo repositorioArticulos)
         {
+            // Inyeccion de dependencia
             this.RepositorioArticulos = repositorioArticulos;
         }
 
-        public void AltaArticulo(Articulo articuloNuevo)
+        public IEnumerable<Articulo> LsitarArticulos()
         {
-            this.RepositorioArticulos.Add(articuloNuevo);
+            return this.RepositorioArticulos.FindAll();
         }
     }
 }
