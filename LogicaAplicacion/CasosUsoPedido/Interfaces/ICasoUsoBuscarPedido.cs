@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUsoPedido.Interfaces
 {
     public interface ICasoUsoBuscarPedido
     {
-        public Pedido BuscarPedido(long id);
+        public Pedido BuscarPedido(int id);
 
     }
 }

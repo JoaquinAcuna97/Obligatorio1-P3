@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUsoPedido.Interfaces
 {
     public interface ICasoUsoBajaPedido
     {
-        public void BajaPedido(Pedido pedido);
+        public void BajaPedido(int id);
 
     }
 }
