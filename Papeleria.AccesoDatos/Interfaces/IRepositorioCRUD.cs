@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Papeleria.AccesoDatos.Interfaces
 {
-    public interface IRepositorio<T>
+    public interface IRepositorioCRUD<T>
     {
         public void Add(T item);
 

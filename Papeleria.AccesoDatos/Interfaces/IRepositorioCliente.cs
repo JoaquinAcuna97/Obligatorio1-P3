@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Papeleria.AccesoDatos.Interfaces
 {
-    public interface IRepositorioCliente : IRepositorio<Cliente>
+    public interface IRepositorioCliente : IRepositorioCRUD<Cliente>
     {
     }
 }
