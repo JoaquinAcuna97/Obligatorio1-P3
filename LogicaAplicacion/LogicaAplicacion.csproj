@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CasosUsoUsuario\Implementaciones\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Papeleria.AccesoDatos\Papeleria.AccesoDatos.csproj" />
     <ProjectReference Include="..\Papeleria.LogicaNegocio\Papeleria.LogicaNegocio.csproj" />
   </ItemGroup>

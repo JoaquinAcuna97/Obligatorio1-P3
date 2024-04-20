@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUsoUsuario.Interfaces
 {
     public interface ICasoUsoBajaUsuario
     {
-        public void BajaUsuario(Usuario usuario);
+        public void BajaUsuario(int id);
 
     }
 }

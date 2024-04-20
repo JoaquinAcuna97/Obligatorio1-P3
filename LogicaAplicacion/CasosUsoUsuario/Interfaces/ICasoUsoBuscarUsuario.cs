@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUsoUsuario.Interfaces
 {
     public interface ICasoUsoBuscarUsuario
     {
-        public Usuario BuscarUsuario(string email);
+        public Usuario BuscarUsuario(int id);
 
     }
 }
