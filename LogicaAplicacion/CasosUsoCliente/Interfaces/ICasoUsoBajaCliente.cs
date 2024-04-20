@@ -9,7 +9,7 @@ namespace LogicaAplicacion.CasosUsoCliente.Interfaces
 {
     public interface ICasoUsoBajaCliente
     {
-        public void BajaCliente(Cliente cliente);
+        public void BajaCliente(int id);
 
     }
 }

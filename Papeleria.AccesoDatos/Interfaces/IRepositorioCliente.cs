@@ -9,5 +9,6 @@ namespace Papeleria.AccesoDatos.Interfaces
 {
     public interface IRepositorioCliente : IRepositorioCRUD<Cliente>
     {
+        public Cliente BuscarClientePorRut(long rut);
     }
 }

@@ -9,7 +9,8 @@ namespace LogicaAplicacion.CasosUsoCliente.Interfaces
 {
     public interface ICasoUsoBuscarCliente
     {
-        public Cliente BuscarCliente(long rut);
+        public Cliente BuscarClientePorRut(long rut);
+        public Cliente BuscarClientePorId(int id);
 
     }
 }
