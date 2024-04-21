@@ -11,21 +11,21 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
     public class RepositorioUsuario : IRepositorioUsuario
     {
-        private PapeleriaContext _context;
+        private readonly PapeleriaContext _papeleriaContext;
 
         public RepositorioUsuario()
         {
-            _context = new PapeleriaContext();
+            _papeleriaContext = new PapeleriaContext();
         }
 
-        #region CRUD 
+        #region CRUD Operations
         public void Add(Usuario usuarioNuevo)
         {
             try
             {
                 usuarioNuevo.EsValido();
-                _context.Usuarios.Add(usuarioNuevo);
-                _context.SaveChanges();
+                _papeleriaContext.Usuarios.Add(usuarioNuevo);
+                _papeleriaContext.SaveChanges();
             }
             catch (UsuarioNoValidoException)
             {
@@ -40,30 +40,39 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         public void Delete(int id)
         {
             Usuario aBorrar = FindById(id);
-            _context.Usuarios.Remove(aBorrar);
-            _context.SaveChanges();
+            _papeleriaContext.Usuarios.Remove(aBorrar);
+            _papeleriaContext.SaveChanges();
         }
 
         public IEnumerable<Usuario> FindAll()
         {
-            return _context.Usuarios;
+            return _papeleriaContext.Usuarios;
         }
 
         public Usuario FindById(int id)
         {
-            if (_context.Usuarios.Count() < 1)
+            if (_papeleriaContext.Usuarios.Count() < 1)
             {
                 throw new Exception("La tabla de Usuarios esta vacia");
             }
 
 #pragma warning disable CS8603 // Possible null reference return checked before
-            return _context.Usuarios.FirstOrDefault(usuario => usuario.Id == id);
+            return _papeleriaContext.Usuarios.FirstOrDefault(usuario => usuario.Id == id);
 #pragma warning restore CS8603 // Possible null reference return.
         }
 
         public void Update(Usuario usuarioEditado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                usuarioEditado.EsValido();
+                _papeleriaContext.Usuarios.Update(usuarioEditado);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
     }
