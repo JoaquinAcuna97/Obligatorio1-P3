@@ -6,13 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Papeleria.AccesoDatos.Implementaciones
+namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
     public class RepositorioCliente : IRepositorioCliente
     {
         public List<Cliente> Clientes { get; set; }
 
         public void Add(Cliente item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Cliente BuscarClientePorRut(long rut)
         {
             throw new NotImplementedException();
         }

@@ -25,40 +25,41 @@ namespace Papeleria.LogicaNegocio.Entidades
         #endregion
 
         #region Métodos Constructores
-        public Usuario(string nombre, string apellido, string email, bool esAdmin)
+        public Usuario(string nombre, string apellido, string email, string contrasenia, bool esAdmin)
         {
 
-            NombreCompleto = new NombreCompleto(nombre, apellido);
-            Email = email;
-            EsAdmin = esAdmin;
+            this.NombreCompleto = new NombreCompleto(nombre, apellido);
+            this.Email = email;
+            this.Contrasena = contrasenia;
+            this.ContrasenaEncriptada = contrasenia;
+            this.EsAdmin = esAdmin;
             EsValido(this);
 
         }
 
-        public Usuario()
-        {
-
-        }
+        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public Usuario() { }
+        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         #endregion
 
         #region Métodos que sobreescribimos de la clase Object y de la interfaz IEquatable
-        override public string ToString()
-        {
-            return $"{this.NombreCompleto.Nombre} -- {this.NombreCompleto.Apellido}";
-        }
+
         public bool Equals(Usuario? other)
         {
-            if (other == null)
-                throw new ArgumentNullException("Debe incluir el usuario a comparar");
+            ArgumentNullException.ThrowIfNull(other);
 
             return this.Id == other.Id;
+        }
+        public override string ToString()
+        {
+            return $"{this.NombreCompleto.Nombre} -- {this.NombreCompleto.Apellido}";
         }
         #endregion
 
         #region Métodos para validaciones
-        public void EsValido(Usuario entidad)
+        public void EsValido(Usuario unUsuario)
         {
-            if (entidad == null)
+            if (unUsuario == null)
                 throw new UsuarioNuloException("El Usuario no puede ser nulo");
             this.NombreCompleto.EsValido();
         }
@@ -68,11 +69,9 @@ namespace Papeleria.LogicaNegocio.Entidades
             try
             {
                 EsValido(this);
-
             }
             catch (Exception ex)
             {
-
                 throw new UsuarioNoValidoException("Estoy capturando en EsValido", ex);
             }
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Papeleria.AccesoDatos.EntityFramework;
+using Papeleria.AccesoDatos;
 
 #nullable disable
 
@@ -46,7 +46,7 @@ namespace Papeleria.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuarios");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Papeleria.LogicaNegocio.Entidades.Usuario", b =>
@@ -66,7 +66,7 @@ namespace Papeleria.AccesoDatos.Migrations
 
                             b1.HasKey("UsuarioId");
 
-                            b1.ToTable("usuarios");
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");

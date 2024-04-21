@@ -21,7 +21,7 @@ namespace LogicaAplicacion.CasosUsoCliente.Implementaciones
 
         public void EditarCliente(Cliente cliente)
         {
-            this.RepositorioClientes.UpdateCliente(cliente);
+            this.RepositorioClientes.Update(cliente);
         }
 
     }

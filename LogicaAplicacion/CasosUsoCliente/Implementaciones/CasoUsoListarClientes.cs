@@ -25,3 +25,4 @@ namespace LogicaAplicacion.CasosUsoCliente.Implementaciones
             return this.RepositorioClientes.FindAll();
         }
     }
+}

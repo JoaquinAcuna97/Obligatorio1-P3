@@ -9,15 +9,9 @@ using System.Threading.Tasks;
 
 namespace LogicaAplicacion.CasosUsoArticulo.Implementaciones
 {
-    public class CasoUsoBajaArticulo : ICasoUsoBajaArticulo
+    public class CasoUsoBajaArticulo(IRepositorioArticulo repositorioArticulos) : ICasoUsoBajaArticulo
     {
-        public IRepositorioArticulo RepositorioArticulos { get; set; }
-
-        public CasoUsoBajaArticulo(IRepositorioArticulo repositorioArticulos)
-        {
-            // Inyeccion de dependencia
-            this.RepositorioArticulos = repositorioArticulos;
-        }
+        public IRepositorioArticulo RepositorioArticulos { get; set; } = repositorioArticulos;
 
         public void BajaArticulo(int id)
         {

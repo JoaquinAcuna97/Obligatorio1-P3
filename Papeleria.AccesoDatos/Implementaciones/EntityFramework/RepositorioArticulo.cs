@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Papeleria.AccesoDatos.Implementaciones
+namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
-    public class RepositorioPedido : IRepositorioPedido
+    public class RepositorioArticulo : IRepositorioArticulo
     {
-        public List<Pedido> Pedidos { get; set; }
+        public List<Articulo> Articulos { get; set; }
 
 
-        public void Add(Pedido item)
+        public void Add(Articulo item)
         {
             throw new NotImplementedException();
         }
@@ -23,17 +23,17 @@ namespace Papeleria.AccesoDatos.Implementaciones
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Pedido> FindAll()
+        public IEnumerable<Articulo> FindAll()
         {
             throw new NotImplementedException();
         }
 
-        public Pedido FindById(int id)
+        public Articulo FindById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Pedido item)
+        public void Update(Articulo item)
         {
             throw new NotImplementedException();
         }

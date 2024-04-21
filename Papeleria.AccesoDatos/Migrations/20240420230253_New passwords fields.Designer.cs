@@ -4,14 +4,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Papeleria.AccesoDatos;
 
 #nullable disable
 
 namespace Papeleria.AccesoDatos.Migrations
 {
     [DbContext(typeof(PapeleriaContext))]
-    [Migration("20240404215321_add password")]
-    partial class addpassword
+    [Migration("20240420230253_New passwords fields")]
+    partial class Newpasswordsfields
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +49,7 @@ namespace Papeleria.AccesoDatos.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("usuarios");
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Papeleria.LogicaNegocio.Entidades.Usuario", b =>
@@ -68,7 +69,7 @@ namespace Papeleria.AccesoDatos.Migrations
 
                             b1.HasKey("UsuarioId");
 
-                            b1.ToTable("usuarios");
+                            b1.ToTable("Usuarios");
 
                             b1.WithOwner()
                                 .HasForeignKey("UsuarioId");

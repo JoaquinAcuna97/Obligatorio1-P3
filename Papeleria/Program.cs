@@ -1,5 +1,6 @@
-using Papeleria.AccesoDatos.EntityFramework.Repositorios;
-using Papeleria.LogicaNegocio.InterfacesAccesoDatos;
+
+using Papeleria.AccesoDatos.Implementaciones.EntityFramework;
+using Papeleria.AccesoDatos.Interfaces;
 
 namespace Papeleria
 {

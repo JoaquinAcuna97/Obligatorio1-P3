@@ -1,18 +1,15 @@
 ﻿using Papeleria.LogicaNegocio.Entidades;
-using Papeleria.LogicaNegocio.InterfacesAccesoDatos;
 using Papeleria.LogicaNegocio.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Papeleria.AccesoDatos.Interfaces;
 
 namespace Papeleria.Web.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController(IRepositorioUsuario repositorioUsuario) : Controller
     {
-        public IRepositorioUsuario repositorioUsuario { get; set; }
-        public UsuarioController(IRepositorioUsuario repositorioUsuario) 
-        {
-            this.repositorioUsuario = repositorioUsuario;
-        }
+        public IRepositorioUsuario RepositorioUsuario { get; set; } = repositorioUsuario;
+
         // GET: UsuarioController
         public ActionResult Index()
         {
@@ -74,7 +71,7 @@ namespace Papeleria.Web.Controllers
         public ActionResult Delete(int id)
         {
             
-            return View(repositorioUsuario.FindByID(id));
+            return View(RepositorioUsuario.FindById(id));
         }
 
         // POST: UsuarioController/Delete/5
@@ -84,7 +81,7 @@ namespace Papeleria.Web.Controllers
         {
             try
             {
-                repositorioUsuario.Remove(id);
+                repositorioUsuario.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
