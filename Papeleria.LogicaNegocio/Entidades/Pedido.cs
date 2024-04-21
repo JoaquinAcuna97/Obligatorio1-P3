@@ -5,13 +5,14 @@ namespace Papeleria.LogicaNegocio.Entidades
 {
 	public abstract class Pedido : Articulo
 	{
-		public static double s_IVA;
-
-		public Date FechaPrometida;
-
-		public Date FechaCreado;
+        #region Properies
+        public static double s_IVA;
 
 		public int Id;
+
+		public Date FechaPrometidaz;
+
+		public Date FechaCreado;
 
 		public Cliente Cliente;
 
@@ -24,14 +25,12 @@ namespace Papeleria.LogicaNegocio.Entidades
 		public Date FechaEntregado;
 
 		public Estado Estado;
+        #endregion
 
-		private Cliente cliente;
-
-		private LineaPedido[] lineaPedido;
-
-		public abstract double CalcularTotal();
-
-	}
+        #region Methods definitions
+        public abstract double CalcularTotal();
+        #endregion
+    }
 
 }
 

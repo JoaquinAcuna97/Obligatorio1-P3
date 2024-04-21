@@ -10,32 +10,93 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
     public class RepositorioPedido : IRepositorioPedido
     {
-        public List<Pedido> Pedidos { get; set; }
+        private readonly PapeleriaContext _papeleriaContext;
 
-
-        public void Add(Pedido item)
+        public RepositorioPedido()
         {
-            throw new NotImplementedException();
+            //Inyeccion de dependencia
+            _papeleriaContext = new PapeleriaContext();
         }
 
-        public void Delete(int id)
+        #region CRUD Operations
+        public void Add(Pedido pedidoNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                pedidoNuevo.EsValido();
+                _papeleriaContext.Pedidos.Add(pedidoNuevo);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Pedido no valido exception
+                throw;
+            }
         }
 
         public IEnumerable<Pedido> FindAll()
         {
-            throw new NotImplementedException();
+            if (!_papeleriaContext.Pedidos.Any())
+            {
+                //TODO: Empty table exception
+                throw new Exception("La tabla de Pedidos esta vacia");
+            }
+
+            return _papeleriaContext.Pedidos;
         }
 
         public Pedido FindById(int id)
         {
-            throw new NotImplementedException();
+            if (!_papeleriaContext.Pedidos.Any())
+            {
+                //TODO: Empty table exception
+                throw new Exception("La tabla de Pedidos esta vacia");
+            }
+
+            try
+            {
+                //TODO: Deberia ser un pedido DTO(?)
+                Pedido? pedidoEncontrado = _papeleriaContext.Pedidos.FirstOrDefault(pedido => pedido.Id == id);
+                //TODO: PEdido no encontrado exception
+                return pedidoEncontrado ?? throw new Exception($"No se encontro el pedido de ID: {id}");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public void Update(Pedido item)
+        public void Update(Pedido pedidoEditado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                pedidoEditado.EsValido();
+                _papeleriaContext.Pedidos.Update(pedidoEditado);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Pedido no valido exception
+                throw;
+            }
         }
+        
+        public void Delete(int id)
+        {
+            try
+            {
+                //TODO: Deberia ser un pedido DTO(?)
+                Pedido pedidoEncontrado = this.FindById(id);
+                _papeleriaContext.Pedidos.Remove(pedidoEncontrado);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: pedido no encontrado exception
+                throw;
+            }
+        }
+        #endregion
     }
 }
