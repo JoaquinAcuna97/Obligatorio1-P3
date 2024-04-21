@@ -21,8 +21,5 @@ namespace Papeleria.LogicaNegocio.Excepciones.Usuario
         {
         }
 
-        protected UsuarioDuplicadoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

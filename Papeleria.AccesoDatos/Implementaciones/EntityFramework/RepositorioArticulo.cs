@@ -1,5 +1,8 @@
 ﻿using Papeleria.AccesoDatos.Interfaces;
 using Papeleria.LogicaNegocio.Entidades;
+using Papeleria.LogicaNegocio.Excepciones.Articulos;
+using Papeleria.LogicaNegocio.Excepciones.Clientes;
+using Papeleria.LogicaNegocio.Excepciones.Generales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +29,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Articulos.Add(articuloNuevo);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (ArticuloNoEncontradoException)
             {
-                //TODO: Articulo not valid exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -37,8 +43,7 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Articulos.Any())
             {
-                //TODO: Table empty exception
-                throw new Exception("La tabla Articulos esta vacia");
+                throw new DataBaseSetException("La tabla Articulos esta vacia");
             }
 
             return _papeleriaContext.Articulos;
@@ -48,20 +53,21 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Articulos.Any())
             {
-                //TODO: Table empty exception
-                throw new Exception("La tabla Articulos esta vacia");
+                throw new DataBaseSetException("La tabla Articulos esta vacia");
             }
 
             try
             {
                 Articulo? articuloEncontrado = _papeleriaContext.Articulos.FirstOrDefault(articulo => articulo.Id == id);
-                //TODO: Articulo no encontrado Exception
-                return articuloEncontrado ?? throw new Exception($"No se encontro el articulo de Id: {id}");
+                return articuloEncontrado ?? throw new ArticuloNoEncontradoException($"No se encontro el articulo de Id: {id}");
             }
-            catch (Exception)
+            catch (ArticuloNoEncontradoException)
             {
-                //TODO: Articulo no encontrado exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -73,10 +79,12 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Articulos.Update(articuloEditado);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (ArticuloNoValidoException)
             {
-                //TODO: Articulo no valido exception
                 throw;
+            }catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -88,10 +96,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Articulos.Remove(articuloParaBorrar);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (ArticuloNoEncontradoException)
             {
-                //TODO: Articulo no encontrado exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
         #endregion

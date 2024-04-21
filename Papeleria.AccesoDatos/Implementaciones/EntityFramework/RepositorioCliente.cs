@@ -1,5 +1,7 @@
 ﻿using Papeleria.AccesoDatos.Interfaces;
 using Papeleria.LogicaNegocio.Entidades;
+using Papeleria.LogicaNegocio.Excepciones.Clientes;
+using Papeleria.LogicaNegocio.Excepciones.Generales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +27,14 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 clienteNuevo.EsValido();
                 _papeleriaContext.Clientes.Add(clienteNuevo);
                 _papeleriaContext.SaveChanges();
-            }catch (Exception)
+            }
+            catch (ClienteNoValidoException)
             {
-                //TODO: Excepcion personalizada cliente no valido
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -37,9 +43,10 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
             try
             {
                 return _papeleriaContext.Clientes;
-            }catch(Exception)
+            }
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -47,13 +54,22 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Clientes.Any())
             {
-                //TODO: Tabla vacia exception
-                throw new Exception("La tabla de Clientes esta vacia");
+                throw new DataBaseSetException("La tabla de Clientes esta vacia");
             }
 
-            Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.Id == id);
-            //TODO: Cliente no encontrado exception
-            return clienteEncontrado ?? throw new Exception($"No se encontro el cliente de ID: {id}");
+            try
+            {
+                Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.Id == id);
+                return clienteEncontrado ?? throw new ClienteNoEncontradoException($"No se encontro el cliente de ID: {id}");
+            }
+            catch (ClienteNoEncontradoException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
+            }
         }
 
         public void Update(Cliente clienteEditado)
@@ -64,13 +80,16 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Clientes.Update(clienteEditado);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (ClienteNoValidoException)
             {
-                //TODO: Cliente not valid exception
                 throw;
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
+            }
         }
-        
+
         public void Delete(int id)
         {
             try
@@ -79,10 +98,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Clientes.Remove(clienteParaBorrar);
                 _papeleriaContext.SaveChanges(true);
             }
-            catch (Exception)
+            catch (ClienteNoEncontradoException)
             {
-                //TODO: Cliente no encontrado exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
         #endregion
@@ -90,23 +112,26 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         #region DML
         public Cliente BuscarClientePorRut(long rut)
         {
+
+            if (!_papeleriaContext.Clientes.Any())
+            {
+                throw new DataBaseSetException("La tabla de Clientes esta vacia");
+            }
+
             try
             {
-                if (!_papeleriaContext.Clientes.Any())
-                {
-                    //TODO: Tabla vacia exception
-                    throw new Exception("La tabla de Clientes esta vacia");
-                }
-
                 Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.RUT == rut);
-                //TODO: Cliente no encontrado exception
-                return clienteEncontrado ?? throw new Exception($"No se pudo encontrar al cliente de RUT {rut}");
+                return clienteEncontrado ?? throw new ClienteNoEncontradoException($"No se pudo encontrar al cliente de RUT {rut}");
             }
-            catch (Exception)
+            catch (ClienteNoEncontradoException)
             {
-                //Cliente no encontrado exception
                 throw;
             }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
+            }
+
         }
         #endregion
     }

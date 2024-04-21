@@ -1,5 +1,6 @@
 ﻿using Papeleria.AccesoDatos.Interfaces;
 using Papeleria.LogicaNegocio.Entidades;
+using Papeleria.LogicaNegocio.Excepciones.Generales;
 using Papeleria.LogicaNegocio.Excepciones.Usuario;
 using System;
 using System.Collections.Generic;
@@ -45,9 +46,11 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Usuarios.Remove(aBorrar);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (UsuarioNoEncontradoException)
             {
-                //TODO: Usuario no encontrado exception
+                throw;
+            }catch (Exception)
+            {
                 throw;
             }
         }
@@ -61,13 +64,11 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Usuarios.Any())
             {
-                //Excepcion personalizada, tabla vacia
-                throw new Exception("La tabla de Usuarios esta vacia");
+                throw new DataBaseSetException("La tabla de Usuarios esta vacia");
             }
 
             Usuario? usuarioEncontrado = _papeleriaContext.Usuarios.FirstOrDefault(usuario => usuario.Id == id);
-            //TODO: Expection personalizada, no se encontro el usuario
-            return usuarioEncontrado ?? throw new Exception($"No se pudo encontrar el usuario de ID: {id}");
+            return usuarioEncontrado ?? throw new UsuarioNoEncontradoException($"No se pudo encontrar el usuario de ID: {id}");
         }
 
         public void Update(Usuario usuarioEditado)

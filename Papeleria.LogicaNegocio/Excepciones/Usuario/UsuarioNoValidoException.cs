@@ -21,8 +21,5 @@ namespace Papeleria.LogicaNegocio.Excepciones.Usuario
         {
         }
 
-        protected UsuarioNoValidoException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

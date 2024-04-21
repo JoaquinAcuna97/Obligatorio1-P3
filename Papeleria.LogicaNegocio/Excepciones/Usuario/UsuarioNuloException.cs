@@ -20,9 +20,5 @@ namespace Papeleria.LogicaNegocio.Excepciones.Usuario
         public UsuarioNuloException(string? message, Exception? innerException) : base(message, innerException)
         {
         }
-
-        protected UsuarioNuloException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

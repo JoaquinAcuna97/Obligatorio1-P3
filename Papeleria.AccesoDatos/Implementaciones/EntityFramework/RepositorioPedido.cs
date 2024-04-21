@@ -1,5 +1,8 @@
 ﻿using Papeleria.AccesoDatos.Interfaces;
 using Papeleria.LogicaNegocio.Entidades;
+using Papeleria.LogicaNegocio.Excepciones.Clientes;
+using Papeleria.LogicaNegocio.Excepciones.Generales;
+using Papeleria.LogicaNegocio.Excepciones.Pedidos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +30,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Pedidos.Add(pedidoNuevo);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (PedidoNoValidoException)
             {
-                //TODO: Pedido no valido exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -38,8 +44,7 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Pedidos.Any())
             {
-                //TODO: Empty table exception
-                throw new Exception("La tabla de Pedidos esta vacia");
+                throw new DataBaseSetException("La tabla de Pedidos esta vacia");
             }
 
             return _papeleriaContext.Pedidos;
@@ -49,21 +54,18 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             if (!_papeleriaContext.Pedidos.Any())
             {
-                //TODO: Empty table exception
-                throw new Exception("La tabla de Pedidos esta vacia");
+                throw new DataBaseSetException("La tabla de Pedidos esta vacia");
             }
 
             try
             {
                 //TODO: Deberia ser un pedido DTO(?)
                 Pedido? pedidoEncontrado = _papeleriaContext.Pedidos.FirstOrDefault(pedido => pedido.Id == id);
-                //TODO: PEdido no encontrado exception
-                return pedidoEncontrado ?? throw new Exception($"No se encontro el pedido de ID: {id}");
+                return pedidoEncontrado ?? throw new PedidoNoEncontradoException($"No se encontro el pedido de ID: {id}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -75,10 +77,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Pedidos.Update(pedidoEditado);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (PedidoNoValidoException)
             {
-                //TODO: Pedido no valido exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
         
@@ -91,10 +96,13 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
                 _papeleriaContext.Pedidos.Remove(pedidoEncontrado);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (PedidoNoEncontradoException)
             {
-                //TODO: pedido no encontrado exception
                 throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
         #endregion

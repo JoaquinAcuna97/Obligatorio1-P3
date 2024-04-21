@@ -11,8 +11,9 @@ namespace Papeleria.LogicaNegocio.Entidades
     public class Usuario
     {
         #region Propiedades
-        public NombreCompleto NombreCompleto { get; set; }
         public int Id { get; set; }
+
+        public NombreCompleto NombreCompleto { get; set; }
 
         public string Email { get; set;}
 

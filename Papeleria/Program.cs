@@ -1,4 +1,5 @@
 
+using Microsoft.EntityFrameworkCore;
 using Papeleria.AccesoDatos.Implementaciones.EntityFramework;
 using Papeleria.AccesoDatos.Interfaces;
 
@@ -12,8 +13,14 @@ namespace Papeleria
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            #region Repositorios
+            builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
+            builder.Services.AddScoped<IRepositorioCliente, RepositorioCliente>();
+            builder.Services.AddScoped<IRepositorioPedido, RepositorioPedido>();
             builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
-           // builder.Services.AddScoped<IRepositorioAutor, RepositorioAutorEF>();
+            #endregion
+
 
             var app = builder.Build();
 

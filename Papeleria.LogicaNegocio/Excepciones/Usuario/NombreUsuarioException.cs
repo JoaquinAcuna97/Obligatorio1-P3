@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Papeleria.LogicaNegocio.Excepciones.Usuario
 {
-    public class NombreUsuarioException:UsuarioNoValidoException
+    public class NombreUsuarioException : Exception
     {
         public NombreUsuarioException()
         {
@@ -18,10 +18,6 @@ namespace Papeleria.LogicaNegocio.Excepciones.Usuario
         }
 
         public NombreUsuarioException(string? message, Exception? innerException) : base(message, innerException)
-        {
-        }
-
-        protected NombreUsuarioException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }
