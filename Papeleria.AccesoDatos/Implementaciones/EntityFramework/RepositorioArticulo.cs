@@ -10,32 +10,90 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
     public class RepositorioArticulo : IRepositorioArticulo
     {
-        public List<Articulo> Articulos { get; set; }
+        private readonly PapeleriaContext _papeleriaContext;
 
-
-        public void Add(Articulo item)
+        public RepositorioArticulo()
         {
-            throw new NotImplementedException();
+            _papeleriaContext = new PapeleriaContext();
         }
 
-        public void Delete(int id)
+        #region CRUD Operations
+        public void Add(Articulo articuloNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                articuloNuevo.EsValido();
+                _papeleriaContext.Articulos.Add(articuloNuevo);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Articulo not valid exception
+                throw;
+            }
         }
 
         public IEnumerable<Articulo> FindAll()
         {
-            throw new NotImplementedException();
+            if (!_papeleriaContext.Articulos.Any())
+            {
+                //TODO: Table empty exception
+                throw new Exception("La tabla Articulos esta vacia");
+            }
+
+            return _papeleriaContext.Articulos;
         }
 
         public Articulo FindById(int id)
         {
-            throw new NotImplementedException();
+            if (!_papeleriaContext.Articulos.Any())
+            {
+                //TODO: Table empty exception
+                throw new Exception("La tabla Articulos esta vacia");
+            }
+
+            try
+            {
+                Articulo? articuloEncontrado = _papeleriaContext.Articulos.FirstOrDefault(articulo => articulo.Id == id);
+                //TODO: Articulo no encontrado Exception
+                return articuloEncontrado ?? throw new Exception($"No se encontro el articulo de Id: {id}");
+            }
+            catch (Exception)
+            {
+                //TODO: Articulo no encontrado exception
+                throw;
+            }
         }
 
-        public void Update(Articulo item)
+        public void Update(Articulo articuloEditado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                articuloEditado.EsValido();
+                _papeleriaContext.Articulos.Update(articuloEditado);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Articulo no valido exception
+                throw;
+            }
         }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                Articulo articuloParaBorrar = this.FindById(id);
+                _papeleriaContext.Articulos.Remove(articuloParaBorrar);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Articulo no encontrado exception
+                throw;
+            }
+        }
+        #endregion
     }
 }

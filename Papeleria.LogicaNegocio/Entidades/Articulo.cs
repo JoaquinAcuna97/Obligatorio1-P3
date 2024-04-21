@@ -1,18 +1,44 @@
+using Papeleria.LogicaNegocio.InterfacesEntidades;
+
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class Articulo
+    public class Articulo : IValidable<Articulo>
 	{
-		public string Nombre;
+        #region Properties
+        public int Id { get; set; }
 
-		public string Descripcion;
+		public string Nombre { get; set; }
 
-		public string Codigo;
+		public string Descripcion { get; set; }
 
-		public double Precio;
+        public string Codigo { get; set; }
 
-		public long Stock;
+        public double Precio { get; set; }
 
-	}
+        public long Stock { get; set; }
+        #endregion
+
+        #region Constructors
+        public Articulo (int id, string nombre, string descripcion, string codigo, double precio, long stock)
+        {
+            Id = id;
+            Nombre = nombre;
+            Descripcion = descripcion;
+            Codigo = codigo;
+            Precio = precio;
+            Stock = stock;
+        }
+
+        public Articulo() { }
+        #endregion
+
+        #region Methods
+        public void EsValido()
+        {
+            //TODO: Validaciones necesarias
+        }
+        #endregion
+    }
 
 }
 
