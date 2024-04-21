@@ -39,9 +39,17 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 
         public void Delete(int id)
         {
-            Usuario aBorrar = FindById(id);
-            _papeleriaContext.Usuarios.Remove(aBorrar);
-            _papeleriaContext.SaveChanges();
+            try
+            {
+                Usuario aBorrar = FindById(id);
+                _papeleriaContext.Usuarios.Remove(aBorrar);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Usuario no encontrado exception
+                throw;
+            }
         }
 
         public IEnumerable<Usuario> FindAll()
@@ -51,14 +59,15 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 
         public Usuario FindById(int id)
         {
-            if (_papeleriaContext.Usuarios.Count() < 1)
+            if (!_papeleriaContext.Usuarios.Any())
             {
+                //Excepcion personalizada, tabla vacia
                 throw new Exception("La tabla de Usuarios esta vacia");
             }
 
-#pragma warning disable CS8603 // Possible null reference return checked before
-            return _papeleriaContext.Usuarios.FirstOrDefault(usuario => usuario.Id == id);
-#pragma warning restore CS8603 // Possible null reference return.
+            Usuario? usuarioEncontrado = _papeleriaContext.Usuarios.FirstOrDefault(usuario => usuario.Id == id);
+            //TODO: Expection personalizada, no se encontro el usuario
+            return usuarioEncontrado ?? throw new Exception($"No se pudo encontrar el usuario de ID: {id}");
         }
 
         public void Update(Usuario usuarioEditado)
