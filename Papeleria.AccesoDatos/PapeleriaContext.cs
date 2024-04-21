@@ -11,7 +11,7 @@ namespace Papeleria.AccesoDatos
     public class PapeleriaContext : DbContext
     {
         // public DbSet<Articulo> Articulos { get; set; }
-        //public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
         //public DbSet<Pedido> Pedidos{ get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 

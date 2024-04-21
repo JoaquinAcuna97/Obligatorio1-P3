@@ -10,36 +10,104 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 {
     public class RepositorioCliente : IRepositorioCliente
     {
-        public List<Cliente> Clientes { get; set; }
+        private readonly PapeleriaContext _papeleriaContext;
 
-        public void Add(Cliente item)
+        public RepositorioCliente()
         {
-            throw new NotImplementedException();
+            _papeleriaContext = new PapeleriaContext();
         }
 
-        public Cliente BuscarClientePorRut(long rut)
+        #region CRUD Operations
+        public void Add(Cliente clienteNuevo)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                clienteNuevo.EsValido();
+                _papeleriaContext.Clientes.Add(clienteNuevo);
+                _papeleriaContext.SaveChanges();
+            }catch (Exception)
+            {
+                //TODO: Excepcion personalizada cliente no valido
+                throw;
+            }
         }
 
         public IEnumerable<Cliente> FindAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _papeleriaContext.Clientes;
+            }catch(Exception)
+            {
+                throw;
+            }
         }
 
         public Cliente FindById(int id)
         {
-            throw new NotImplementedException();
+            if (!_papeleriaContext.Clientes.Any())
+            {
+                //TODO: Tabla vacia exception
+                throw new Exception("La tabla de Clientes esta vacia");
+            }
+
+            Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.Id == id);
+            //TODO: Cliente no encontrado exception
+            return clienteEncontrado ?? throw new Exception($"No se encontro el cliente de ID: {id}");
         }
 
-        public void Update(Cliente item)
+        public void Update(Cliente clienteEditado)
         {
-            throw new NotImplementedException();
+            try
+            {
+                clienteEditado.EsValido();
+                _papeleriaContext.Clientes.Update(clienteEditado);
+                _papeleriaContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                //TODO: Cliente not valid exception
+                throw;
+            }
         }
+        
+        public void Delete(int id)
+        {
+            try
+            {
+                Cliente clienteParaBorrar = this.FindById(id);
+                _papeleriaContext.Clientes.Remove(clienteParaBorrar);
+                _papeleriaContext.SaveChanges(true);
+            }
+            catch (Exception)
+            {
+                //TODO: Cliente no encontrado exception
+                throw;
+            }
+        }
+        #endregion
+
+        #region DML
+        public Cliente BuscarClientePorRut(long rut)
+        {
+            try
+            {
+                if (!_papeleriaContext.Clientes.Any())
+                {
+                    //TODO: Tabla vacia exception
+                    throw new Exception("La tabla de Clientes esta vacia");
+                }
+
+                Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.RUT == rut);
+                //TODO: Cliente no encontrado exception
+                return clienteEncontrado ?? throw new Exception($"No se pudo encontrar al cliente de RUT {rut}");
+            }
+            catch (Exception)
+            {
+                //Cliente no encontrado exception
+                throw;
+            }
+        }
+        #endregion
     }
 }

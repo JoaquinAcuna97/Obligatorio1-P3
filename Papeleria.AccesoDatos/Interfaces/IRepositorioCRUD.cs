@@ -10,13 +10,13 @@ namespace Papeleria.AccesoDatos.Interfaces
     {
         public void Add(T item);
 
-        public void Update(T item);
-
-        public void Delete(int id);
-
         public IEnumerable<T> FindAll();
 
         public T FindById(int id);
+
+        public void Update(T item);
+
+        public void Delete(int id);
 
     }
 }

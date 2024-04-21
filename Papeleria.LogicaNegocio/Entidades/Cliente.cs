@@ -1,26 +1,47 @@
 using Papeleria.LogicaNegocio.ValueObjects;
 using Papeleria.LogicaNegocio.Entidades;
 using Papeleria.LogicaNegocio.ValueObject;
+using Papeleria.LogicaNegocio.InterfacesEntidades;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class Cliente
+    public class Cliente : IValidable<Cliente>
 	{
-		public long RUT;
+        #region Properties
+        public int Id { get; set; }
 
-		public string RazonSocial;
+		public long RUT { get; set; }
 
-		public Direccion Direccion;
+        public string RazonSocial { get; set; }
 
-		public List<Usuario> Usuarios;
+        public Direccion Direccion { get; set; }
 
-		public double TotalAcumulado;
+        public List<Usuario> Usuarios { get; set; }
 
-		private Direccion[] direccion;
+        public double TotalAcumulado { get; set; }
+        #endregion
 
-		private Usuario[] usuario;
+        #region Constructors
+        public Cliente(int id, long rUT, string razonSocial, Direccion direccion, List<Usuario> usuarios, double totalAcumulado)
+        {
+            this.Id = id;
+            this.RUT = rUT;
+            this.RazonSocial = razonSocial;
+            this.Direccion = direccion;
+            this.Usuarios = usuarios;
+            this.TotalAcumulado = totalAcumulado;
+        }
 
-	}
+        public Cliente() { }
+        #endregion
+
+        #region Methods
+        public void EsValido()
+        {
+			//TODO: Validaciones necesarias
+        }
+        #endregion
+    }
 
 }
 
