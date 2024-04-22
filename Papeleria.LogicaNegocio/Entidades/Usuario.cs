@@ -5,21 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Papeleria.LogicaNegocio.ValueObject;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
     public class Usuario
     {
-        #region Propiedades
+        #region Properties
         public int Id { get; set; }
 
         public NombreCompleto NombreCompleto { get; set; }
 
-        public string Email { get; set;}
+        public Email Email { get; set;}
 
-        public string Contrasena { get; set; }
+        public string Contrasenia { get; set; }
 
-        public string ContrasenaEncriptada { get; set; }
+        public string ContraseniaEncriptada { get; set; }
 
         public bool EsAdmin { get; set;}
 
@@ -29,52 +30,40 @@ namespace Papeleria.LogicaNegocio.Entidades
         public Usuario(string nombre, string apellido, string email, string contrasenia, bool esAdmin)
         {
 
-            this.NombreCompleto = new NombreCompleto(nombre, apellido);
-            this.Email = email;
-            this.Contrasena = contrasenia;
-            this.ContrasenaEncriptada = contrasenia;
-            this.EsAdmin = esAdmin;
-            EsValido(this);
+            NombreCompleto = new NombreCompleto(nombre, apellido);
+            Email = new Email(email);
+            Contrasenia = contrasenia;
+            ContraseniaEncriptada = contrasenia;
+            EsAdmin = esAdmin;
+            //TODO: revisar validaciones
+            //EsValido();
 
-        }
-
-        #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public Usuario() { }
-        #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        #endregion
-
-        #region Métodos que sobreescribimos de la clase Object y de la interfaz IEquatable
-
-        public bool Equals(Usuario? other)
-        {
-            ArgumentNullException.ThrowIfNull(other);
-
-            return this.Id == other.Id;
-        }
-        public override string ToString()
-        {
-            return $"{this.NombreCompleto.Nombre} -- {this.NombreCompleto.Apellido}";
         }
         #endregion
 
-        #region Métodos para validaciones
-        public void EsValido(Usuario unUsuario)
+        #region Validations
+        
+        public static void EsValido(Usuario unUsuario)
         {
             if (unUsuario == null)
                 throw new UsuarioNuloException("El Usuario no puede ser nulo");
-            this.NombreCompleto.EsValido();
+            
+            unUsuario.NombreCompleto.EsValido();
+        }
+        #endregion
+
+        #region Overrided Methods
+        public bool Equals(Usuario? otroUsuario)
+        {
+            if (otroUsuario == null)
+                throw new UsuarioNuloException("El usuario a comparar no puede ser nulo");
+
+            return Id == otroUsuario.Id;
         }
 
-        public void EsValido()
+        public override string ToString()
         {
-            try
-            {
-                EsValido(this);
-            }
-            catch (Exception ex)
-            {
-                throw new UsuarioNoValidoException("Estoy capturando en EsValido", ex);
-            }
+            return $"ID: {Id}, {NombreCompleto.Nombre} -- {NombreCompleto.Apellido}";
         }
         #endregion
     }

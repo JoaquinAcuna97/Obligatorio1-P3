@@ -1,6 +1,7 @@
 ﻿using Papeleria.AccesoDatos.Interfaces;
 using Papeleria.LogicaNegocio.Entidades;
 using Papeleria.LogicaNegocio.Excepciones.Generales;
+using Papeleria.LogicaNegocio.Excepciones.Pedidos;
 using Papeleria.LogicaNegocio.Excepciones.Usuario;
 using System;
 using System.Collections.Generic;
@@ -24,17 +25,21 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             try
             {
-                usuarioNuevo.EsValido();
+                Usuario.EsValido(usuarioNuevo);
                 _papeleriaContext.Usuarios.Add(usuarioNuevo);
                 _papeleriaContext.SaveChanges();
+            }
+            catch (UsuarioNuloException)
+            {
+                throw;
             }
             catch (UsuarioNoValidoException)
             {
                 throw;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
 
@@ -75,13 +80,21 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             try
             {
-                usuarioEditado.EsValido();
+                Usuario.EsValido(usuarioEditado);
                 _papeleriaContext.Usuarios.Update(usuarioEditado);
                 _papeleriaContext.SaveChanges();
             }
-            catch (Exception)
+            catch (UsuarioNuloException)
             {
                 throw;
+            }
+            catch (UsuarioNoValidoException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error desconocido: {ex.Message} (Trace: {ex.StackTrace})");
             }
         }
         #endregion
