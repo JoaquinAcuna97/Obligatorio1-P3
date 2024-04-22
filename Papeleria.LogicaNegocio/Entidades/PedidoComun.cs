@@ -2,7 +2,7 @@ using Papeleria.LogicaNegocio.Entidades;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class Comun : Pedido
+	public class PedidoComun : Pedido
 	{
 		public static int s_PlazoMinimo;
 

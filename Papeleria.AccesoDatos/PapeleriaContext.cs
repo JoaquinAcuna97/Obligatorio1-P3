@@ -14,6 +14,8 @@ namespace Papeleria.AccesoDatos
         public DbSet<Articulo> Articulos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoComun> PedidosComunes { get; set; }
+        public DbSet<PedidoExpress> PedidosExpress { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         #endregion
 

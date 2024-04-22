@@ -2,7 +2,7 @@ using Papeleria.LogicaNegocio.Entidades;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class Express : Pedido
+	public class PedidoExpress : Pedido
 	{
 		public static int s_PlazoMaximo;
 
