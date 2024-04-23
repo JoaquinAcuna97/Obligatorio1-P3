@@ -26,7 +26,8 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             try
             {
-                pedidoNuevo.EsValido();
+                //TODO: Como se valida un pedido
+                //pedidoNuevo.EsValido();
                 _papeleriaContext.Pedidos.Add(pedidoNuevo);
                 _papeleriaContext.SaveChanges();
             }
@@ -73,7 +74,8 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
         {
             try
             {
-                pedidoEditado.EsValido();
+                //TODO: como se valida un pedido
+                //pedidoEditado.EsValido();
                 _papeleriaContext.Pedidos.Update(pedidoEditado);
                 _papeleriaContext.SaveChanges();
             }

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Papeleria.AccesoDatos.Interfaces
+namespace LogicaAplicacion.CasosUsoLogin.Interfaces
 {
-    public interface IRepositorioUsuario : IRepositorioCRUD<Usuario>
+    public interface ICasoUsoLogin
     {
-        public Usuario FindByEmail(string email);
+        public Usuario Loguear(string email, string password);
     }
 }

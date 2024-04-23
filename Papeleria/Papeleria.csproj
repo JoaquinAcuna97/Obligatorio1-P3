@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogicaAplicacion\LogicaAplicacion.csproj" />
     <ProjectReference Include="..\Papeleria.AccesoDatos\Papeleria.AccesoDatos.csproj" />
     <ProjectReference Include="..\Papeleria.LogicaNegocio\Papeleria.LogicaNegocio.csproj" />
   </ItemGroup>

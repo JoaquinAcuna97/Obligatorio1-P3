@@ -11,7 +11,7 @@ namespace LogicaAplicacion.CasosUsoCliente.Implementaciones
 {
     public class CasoUsoAltaCliente : ICasoUsoAltaCliente
     {
-        public IRepositorioCliente RepositorioClientes { get; set; }
+        public IRepositorioCliente RepositorioClientes { get;}
 
         public CasoUsoAltaCliente(IRepositorioCliente repositorioClientes)
         {

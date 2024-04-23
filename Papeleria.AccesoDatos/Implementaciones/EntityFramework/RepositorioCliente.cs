@@ -120,7 +120,7 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
 
             try
             {
-                Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.RUT == rut);
+                Cliente? clienteEncontrado = _papeleriaContext.Clientes.FirstOrDefault(cliente => cliente.RUT.RUTValor == rut);
                 return clienteEncontrado ?? throw new ClienteNoEncontradoException($"No se pudo encontrar al cliente de RUT {rut}");
             }
             catch (ClienteNoEncontradoException)

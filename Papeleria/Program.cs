@@ -14,6 +14,8 @@ namespace Papeleria
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            
+
             #region Repositorios
             builder.Services.AddScoped<IRepositorioArticulo, RepositorioArticulo>();
             builder.Services.AddScoped<IRepositorioCliente, RepositorioCliente>();
@@ -21,6 +23,15 @@ namespace Papeleria
             builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
             #endregion
 
+            //Sesion
+            //builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                //15 minutos por sesion
+                options.IdleTimeout = TimeSpan.FromSeconds(900);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             var app = builder.Build();
 
@@ -29,11 +40,13 @@ namespace Papeleria
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession(); //Needed for login
 
             app.MapControllerRoute(
                 name: "default",

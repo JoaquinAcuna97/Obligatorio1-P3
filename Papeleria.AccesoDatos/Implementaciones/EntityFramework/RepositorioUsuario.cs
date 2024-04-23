@@ -98,5 +98,18 @@ namespace Papeleria.AccesoDatos.Implementaciones.EntityFramework
             }
         }
         #endregion
+
+        #region Custom operation
+        public Usuario FindByEmail(string email)
+        {
+            if (!_papeleriaContext.Usuarios.Any())
+            {
+                throw new DataBaseSetException("La tabla de Usuarios esta vacia");
+            }
+
+            Usuario? usuarioEncontrado =  _papeleriaContext.Usuarios.FirstOrDefault(usuario => usuario.Email.DireccionEmail == email);
+            return usuarioEncontrado ?? throw new UsuarioNoEncontradoException($"No se pudo encontrar el usuario de email: {email}");
+        }
+        #endregion
     }
 }
