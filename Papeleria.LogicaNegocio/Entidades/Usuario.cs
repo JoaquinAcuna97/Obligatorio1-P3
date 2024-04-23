@@ -18,9 +18,9 @@ namespace Papeleria.LogicaNegocio.Entidades
 
         public Email Email { get; set;}
 
-        public string Contrasenia { get; set; }
+        public Contrasenia Contrasenia { get; set; }
 
-        public string ContraseniaEncriptada { get; set; }
+        public ContraseniaEncriptada ContraseniaEncriptada { get; set; }
 
         public bool EsAdmin { get; set;}
 
@@ -32,8 +32,8 @@ namespace Papeleria.LogicaNegocio.Entidades
 
             NombreCompleto = new NombreCompleto(nombre, apellido);
             Email = new Email(email);
-            Contrasenia = contrasenia;
-            ContraseniaEncriptada = contrasenia;
+            Contrasenia = new Contrasenia(contrasenia);
+            ContraseniaEncriptada = new ContraseniaEncriptada(contrasenia);
             EsAdmin = esAdmin;
             //TODO: revisar validaciones
             //EsValido();

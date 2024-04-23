@@ -10,7 +10,7 @@ namespace Papeleria.LogicaNegocio.Entidades
         #region Properties
         public int Id { get; set; }
 
-		public long RUT { get; set; }
+		public RUT RUT { get; set; }
 
         public string RazonSocial { get; set; }
 
@@ -24,12 +24,12 @@ namespace Papeleria.LogicaNegocio.Entidades
         #region Constructors
         public Cliente(int id, long rUT, string razonSocial, Direccion direccion, List<Usuario> usuarios, double totalAcumulado)
         {
-            this.Id = id;
-            this.RUT = rUT;
-            this.RazonSocial = razonSocial;
-            this.Direccion = direccion;
-            this.Usuarios = usuarios;
-            this.TotalAcumulado = totalAcumulado;
+            Id = id;
+            RUT = new RUT(rUT);
+            RazonSocial = razonSocial;
+            Direccion = direccion;
+            Usuarios = usuarios;
+            TotalAcumulado = 0;
         }
 
         public Cliente() { }
