@@ -2,13 +2,23 @@ using Papeleria.LogicaNegocio.Entidades;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public class PedidoComun : Pedido
+    public class PedidoComun : Pedido
 	{
-		public static int s_PlazoMinimo;
+        //TODO: Pasar esto a archivo de configuracion
+        public static int s_PlazoMinimo;
+
+        public PedidoComun(DateTime fechaPrometida, Cliente cliente) : base(fechaPrometida, cliente)
+        {
+        }
 
         public override double CalcularTotal()
         {
-            throw new NotImplementedException();
+            double totalPedidoBase = base.CalcularTotal();
+            
+            if (this.Cliente.Direccion.Distancia > 100)
+                totalPedidoBase *= 1.05;
+
+            return totalPedidoBase;
         }
     }
 

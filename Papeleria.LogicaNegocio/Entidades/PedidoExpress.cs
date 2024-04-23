@@ -4,11 +4,21 @@ namespace Papeleria.LogicaNegocio.Entidades
 {
 	public class PedidoExpress : Pedido
 	{
+		//TODO: Pasar esto a archivo de configuracion
 		public static int s_PlazoMaximo;
 
-		public override double CalcularTotal()
+        public PedidoExpress(DateTime fechaPrometida, Cliente cliente) : base(fechaPrometida, cliente)
+        {
+        }
+
+        public override double CalcularTotal()
 		{
-			return 0;
+			double totalPedidoBase = base.CalcularTotal();
+
+			TimeSpan diferenciaFechas = FechaPrometida - FechaCreado;
+			int diferenciaDias = diferenciaFechas.Days;
+
+			return diferenciaDias < 1 ? totalPedidoBase *= 1.15 : totalPedidoBase *= 1.1;
 		}
 
 	}

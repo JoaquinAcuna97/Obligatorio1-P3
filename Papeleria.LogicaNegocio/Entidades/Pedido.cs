@@ -3,16 +3,17 @@ using Papeleria.LogicaNegocio.Enumerados;
 
 namespace Papeleria.LogicaNegocio.Entidades
 {
-	public abstract class Pedido : Articulo
+	public abstract class Pedido
 	{
         #region Properies
-        public static double s_IVA;
+		//TODO: Pasar esto a archivo de configuracion
+        public static double s_IVA = 22;
 
 		public int Id;
 
-		public Date FechaPrometidaz;
+		public DateTime FechaPrometida;
 
-		public Date FechaCreado;
+		public DateTime FechaCreado;
 
 		public Cliente Cliente;
 
@@ -22,13 +23,30 @@ namespace Papeleria.LogicaNegocio.Entidades
 
 		public List<LineaPedido> Lineas;
 
-		public Date FechaEntregado;
+		public DateTime? FechaEntregado;
 
 		public Estado Estado;
         #endregion
 
+		protected Pedido( DateTime fechaPrometida, Cliente cliente)
+		{
+			FechaPrometida = fechaPrometida;
+			FechaCreado = DateTime.Now;
+			Cliente = cliente;
+			Total = 0;
+			IVAAplicado = s_IVA;
+			Lineas = [];
+			FechaEntregado = null;
+			Estado = Estado.Nuevo;
+		}
+
         #region Methods definitions
-        public abstract double CalcularTotal();
+        public virtual double CalcularTotal()
+		{	
+			//TODO: Metodo para calcular el total de los pedidos
+			double total = 0;
+			return total;
+		}
         #endregion
     }
 
